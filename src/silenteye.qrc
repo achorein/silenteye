@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/buttons">
+        <file>img/cancel.png</file>
+        <file>img/ok.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>img/charset.png</file>
+        <file>img/module.png</file>
+        <file>img/crypto.png</file>
+        <file>img/imageformat.png</file>
+        <file>img/decode.png</file>
+        <file>img/encode.png</file>
+        <file>img/linuxzealot.png</file>
+        <file>img/property.png</file>
+        <file>img/audio.png</file>
+        <file>img/play.png</file>
+        <file>img/stop.png</file>
+        <file>img/network.png</file>
+    </qresource>
+    <qresource prefix="/menu">
+        <file>img/about.png</file>
+        <file>img/close.png</file>
+        <file>img/copy.png</file>
+        <file>img/open.png</file>
+        <file>img/paste.png</file>
+        <file>img/quit.png</file>
+        <file>img/settings.png</file>
+        <file>img/file.png</file>
+        <file>img/empty.png</file>
+        <file>img/update.png</file>
+    </qresource>
+</RCC>

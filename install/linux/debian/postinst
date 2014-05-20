@@ -1,0 +1,14 @@
+#!/bin/sh
+
+ln -s /opt/silenteye/silenteye /usr/bin/silenteye
+
+echo "[Desktop Entry]
+Name=SilentEye
+Comment=Steganography is yours!
+Type=Application
+Exec=/opt/silenteye/silenteye
+Icon=/opt/silenteye/silenteye.png
+Terminal=false
+Categories=QT;Utility
+StartupNotify=true
+" > /usr/share/applications/silenteye.desktop

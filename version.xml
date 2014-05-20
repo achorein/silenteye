@@ -1,0 +1,19 @@
+<!DOCTYPE SilentEye>
+<version>
+ <name>0.4.3</name>
+ <date>20130228</date>
+ <link-win>https://sourceforge.net/projects/silenteye/files/Application/0.4/silenteye-0.4.3-win32.exe/download</link-win>
+ <link-lin>https://sourceforge.net/projects/silenteye/files/Application/0.4/silenteye-0.4.3-i386.bin/download</link-lin>
+ <link-mac>https://sourceforge.net/projects/silenteye/files/Application/0.4/silenteye-0.4.3-lion.dmg/download</link-mac>
+ <releasenote>
+Changes since 0.4.2:
+FEACTURES:
+* Batch mode (process file from command line)
+* SEFormatBMP/SEFormatJPEG/SEFormatWAV : Use external configuration file for default values
+ENHANCEMENT:
+* Improve dialog's tooltips for jpeg module
+* Add "compress data" default value into preferences
+BUG FIXES:
+* Show module tooltip even if status is OK
+ </releasenote>
+</version>

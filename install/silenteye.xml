@@ -1,0 +1,1269 @@
+<project>
+    <shortName>silenteye</shortName>
+    <fullName>SilentEye</fullName>
+    <version>0.4.2</version>
+    <installerFilename>${product_shortname}-${product_version}-${platform_name}.${platform_exec_suffix}</installerFilename>
+    <licenseFile>../COPYING</licenseFile>
+    <wrapLicenseFileText>0</wrapLicenseFileText>
+    <leftImage>windows/images/wizard.png</leftImage>
+    <logoImage>windows/images/top_right.png</logoImage>
+    <wmImage>../src/img/silenteye.png</wmImage>
+    <initializationActionList>
+        <setInstallerVariableFromScriptOutput>
+            <exec>uname</exec>
+            <execArgs>-a</execArgs>
+            <name>uname</name>
+            <ruleList>
+                <ruleGroup>
+                    <ruleEvaluationLogic>or</ruleEvaluationLogic>
+                    <ruleList>
+                        <platformTest>
+                            <type>linux</type>
+                        </platformTest>
+                        <platformTest>
+                            <type>osx</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </setInstallerVariableFromScriptOutput>
+    </initializationActionList>
+    <preInstallationActionList>
+        <registryGet>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\SilentEye\SilentEye</key>
+            <name>Location</name>
+            <variable>installdir</variable>
+            <wowMode>32</wowMode>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </registryGet>
+        <registryGet>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\silenteye</key>
+            <name>UninstallString</name>
+            <variable>uninstall_exe</variable>
+            <wowMode>32</wowMode>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <fileTest>
+                    <condition>is_directory</condition>
+                    <negate>1</negate>
+                    <path>${installdir}</path>
+                </fileTest>
+            </ruleList>
+        </registryGet>
+        <showQuestion>
+            <default>no</default>
+            <text>A previous version of SilentEye is already installed on this machine. Previous version will be removed. 
+Do you want to continue?</text>
+            <variable>unistallprevious</variable>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+                <ruleGroup>
+                    <ruleEvaluationLogic>or</ruleEvaluationLogic>
+                    <ruleList>
+                        <fileTest>
+                            <condition>exists</condition>
+                            <path>${installdir}/${product_shortname}.exe</path>
+                        </fileTest>
+                        <fileTest>
+                            <condition>exists</condition>
+                            <path>${uninstall_exe}</path>
+                        </fileTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </showQuestion>
+        <showProgressDialog>
+            <progressText>Please wait during uninstall process of previous SilentEye version</progressText>
+            <title>Uninstall previous version</title>
+            <actionList>
+                <runProgram>
+                    <program>${installdir}/uninstall.exe</program>
+                    <programArguments>--mode unattended</programArguments>
+                    <workingDirectory>${installdir}</workingDirectory>
+                    <ruleList>
+                        <fileTest>
+                            <condition>exists</condition>
+                            <path>${installdir}/version.xml</path>
+                        </fileTest>
+                    </ruleList>
+                </runProgram>
+                <runProgram>
+                    <program>${uninstall_exe}</program>
+                    <programArguments>/S</programArguments>
+                    <ruleList>
+                        <fileTest>
+                            <condition>exists</condition>
+                            <path>${uninstall_exe}</path>
+                        </fileTest>
+                    </ruleList>
+                </runProgram>
+            </actionList>
+            <ruleList>
+                <compareText logic="equals" text="${unistallprevious}" value="yes">
+                    <nocase>1</nocase>
+                </compareText>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </showProgressDialog>
+        <exit>
+            <exitCode>1</exitCode>
+            <ruleList>
+                <compareText logic="equals" text="${unistallprevious}" value="yes">
+                    <negate>1</negate>
+                    <nocase>1</nocase>
+                </compareText>
+                <fileTest>
+                    <condition>exists</condition>
+                    <path>${installdir}/${product_shortname}.exe</path>
+                </fileTest>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </exit>
+        <throwError>
+            <text>This installer is unbuntu/kubuntu specific (found: ${uname})</text>
+            <ruleList>
+                <compareText>
+                    <logic>contains</logic>
+                    <negate>1</negate>
+                    <nocase>1</nocase>
+                    <text>${uname}</text>
+                    <value>ubuntu</value>
+                </compareText>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+            </ruleList>
+        </throwError>
+    </preInstallationActionList>
+    <readyToInstallActionList>
+        <deleteFile>
+            <matchHiddenFiles>1</matchHiddenFiles>
+            <path>${installdir}</path>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <fileExists>
+                    <path>${installdir}</path>
+                </fileExists>
+            </ruleList>
+        </deleteFile>
+    </readyToInstallActionList>
+    <postInstallationActionList>
+        <associateWindowsFileExtension>
+            <extensions>.bmp</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/bmp</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${bmp}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.bmp</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/bmp</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${bmp}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.jpg</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/jpg</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.jpg</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/jpg</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.jpeg</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/jpeg</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.jpeg</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/jpeg</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.png</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/png</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${png}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.png</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/png</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${png}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.tiff</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/tiff</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${tiff}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.tiff</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/tiff</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${tiff}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.tif</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/tif</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${tiff}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.tif</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/tif</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${tiff}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.gif</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/gif</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${gif}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.gif</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/gif</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${gif}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.wav</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/wav</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>decode "%1"</runProgramArguments>
+                    <verb>Decode with SilentEye</verb>
+                </command>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>encode "%1"</runProgramArguments>
+                    <verb>Encode with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${wav}"/>
+                <ruleGroup>
+                    <ruleList>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-vista</type>
+                        </platformTest>
+                        <platformTest>
+                            <negate>1</negate>
+                            <type>windows-7</type>
+                        </platformTest>
+                    </ruleList>
+                </ruleGroup>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <associateWindowsFileExtension>
+            <extensions>.wav</extensions>
+            <friendlyName></friendlyName>
+            <icon>${installdir}/${product_shortname}.ico</icon>
+            <mimeType>silenteye/wav</mimeType>
+            <progID>silenteye</progID>
+            <commandList>
+                <command>
+                    <makeDefault>0</makeDefault>
+                    <runProgram>${installdir}\${product_shortname}.exe</runProgram>
+                    <runProgramArguments>"%1"</runProgramArguments>
+                    <verb>Open with SilentEye</verb>
+                </command>
+            </commandList>
+            <ruleList>
+                <isTrue value="${wav}"/>
+            </ruleList>
+        </associateWindowsFileExtension>
+        <writeFile>
+            <abortOnError>0</abortOnError>
+            <encoding>ascii</encoding>
+            <path>/usr/share/applications/silenteye.desktop</path>
+            <text>[Desktop Entry]
+Name=SilentEye
+Comment=Steganography is yours!
+Type=Application
+Exec=${installdir}/silenteye
+Icon=${installdir}/silenteye.png
+Terminal=false
+Categories=QT;Utility
+StartupNotify=true</text>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <isTrue>
+                    <value>${createShortcut}</value>
+                </isTrue>
+            </ruleList>
+        </writeFile>
+        <createSymLink>
+            <linkName>/usr/bin/silenteye</linkName>
+            <target>${installdir}/silenteye</target>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+                <isTrue>
+                    <value>${createBinLink}</value>
+                </isTrue>
+            </ruleList>
+        </createSymLink>
+        <createSymLink>
+            <linkName>~/Desktop/silenteye.app</linkName>
+            <target>${installdir}/silenteye.app</target>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+                <isTrue>
+                    <value>${createDesktopShortcut}</value>
+                </isTrue>
+            </ruleList>
+        </createSymLink>
+        <changePermissions>
+            <files>${installdir}/silenteye</files>
+            <permissions>777</permissions>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+            </ruleList>
+        </changePermissions>
+    </postInstallationActionList>
+    <preUninstallationActionList>
+        <deleteFile>
+            <path>${installdir}/silenteye.log</path>
+        </deleteFile>
+    </preUninstallationActionList>
+    <postUninstallationActionList>
+        <removeWindowsFileAssociation>
+            <extensions>.bmp</extensions>
+            <mimeType>silenteye/bmp</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${bmp}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.jpg</extensions>
+            <mimeType>silenteye/jpg</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.jpeg</extensions>
+            <mimeType>silenteye/jpeg</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.jpe</extensions>
+            <mimeType>silenteye/jpe</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${jpg}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.png</extensions>
+            <mimeType>silenteye/png</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${png}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.tiff</extensions>
+            <mimeType>silenteye/tiff</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${tiff}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.tif</extensions>
+            <mimeType>silenteye/tif</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${tif}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <removeWindowsFileAssociation>
+            <extensions>.wav</extensions>
+            <mimeType>silenteye/wav</mimeType>
+            <progID>silenteye</progID>
+            <ruleList>
+                <isTrue value="${wav}"/>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </removeWindowsFileAssociation>
+        <deleteFile>
+            <path>/usr/share/applications/silenteye.desktop</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+            </ruleList>
+        </deleteFile>
+        <deleteFile>
+            <path>/usr/bin/silenteye</path>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+            </ruleList>
+        </deleteFile>
+        <deleteFile>
+            <matchHiddenFiles>1</matchHiddenFiles>
+            <path>${installdir}</path>
+        </deleteFile>
+    </postUninstallationActionList>
+    <disableSplashScreen>1</disableSplashScreen>
+    <enableRollback>0</enableRollback>
+    <enableTimestamp>1</enableTimestamp>
+    <osxApplicationBundleIcon>../src/img/silenteye.icns</osxApplicationBundleIcon>
+    <productDisplayIcon>${installdir}/${product_shortname}.ico</productDisplayIcon>
+    <saveRelativePaths>1</saveRelativePaths>
+    <singleInstanceCheck>1</singleInstanceCheck>
+    <vendor>SilentEye</vendor>
+    <windowsExecutableIcon>windows/images/se_inst.ico</windowsExecutableIcon>
+    <windowsUninstallerExecutableIcon>windows/images/se_uninst.ico</windowsUninstallerExecutableIcon>
+    <componentList>
+        <component>
+            <name>silenteye</name>
+            <description>SilentEye Application</description>
+            <canBeEdited>0</canBeEdited>
+            <detailedDescription>Application designed for an easy use of steganography.</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <desktopShortcutList>
+                <shortcut>
+                    <comment>Run ${product_fullname}</comment>
+                    <exec>${installdir}/${product_shortname}</exec>
+                    <icon>${installdir}/${product_shortname}.png</icon>
+                    <name>${product_fullname}</name>
+                    <path>${installdir}</path>
+                    <platforms>all</platforms>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/${product_shortname}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>${installdir}/${product_shortname}.ico</windowsIcon>
+                    <windowsPath>${installdir}</windowsPath>
+                    <ruleList>
+                        <isTrue value="${createDesktopShortcut}"/>
+                    </ruleList>
+                </shortcut>
+            </desktopShortcutList>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfiles</name>
+                    <platforms>all</platforms>
+                    <shortcutList>
+                        <shortcut>
+                            <comment>Uninstall</comment>
+                            <exec>${installdir}/${uninstallerName}</exec>
+                            <icon></icon>
+                            <name>Uninstall ${product_fullname}</name>
+                            <path>${installdir}</path>
+                            <platforms>all</platforms>
+                            <runAsAdmin>0</runAsAdmin>
+                            <runInTerminal>0</runInTerminal>
+                            <windowsExec>${installdir}/${uninstallerName}.exe</windowsExec>
+                            <windowsExecArgs></windowsExecArgs>
+                            <windowsIcon></windowsIcon>
+                            <windowsPath>${installdir}</windowsPath>
+                        </shortcut>
+                    </shortcutList>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileslinux</name>
+                    <platforms>linux</platforms>
+                    <distributionFileList>
+                        <distributionFile>
+                            <origin>../install/linux/package/usr/share/doc/silenteye/COPYING</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../install/linux/package/usr/share/doc/silenteye/README</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../install/linux/package/usr/bin/silenteye</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../install/linux/package/etc/silenteye.conf</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../install/linux/package/usr/share/pixmaps/silenteye.png</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../install/linux/package/usr/share/silenteye/version.xml</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/lib</origin>
+                        </distributionDirectory>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/version.xml</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/COPYING</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/libgcc_s_dw2-1.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/libsef.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/mingwm10.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/qt.conf</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/QtCore4.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/QtGui4.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/QtMultimedia4.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/QtNetwork4.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/QtXml4.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/README</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/silenteye.conf</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/${product_shortname}.exe</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/Application/${product_shortname}.ico</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfilesosx</name>
+                    <platforms>osx</platforms>
+                    <distributionFileList>
+                        <distributionFile>
+                            <origin>../silenteye.app</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../COPYING</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../README</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+            <startMenuShortcutList>
+                <startMenuShortcut>
+                    <comment>Steganography is yours</comment>
+                    <name>${product_fullname}</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/${product_shortname}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>${installdir}/${product_shortname}.ico</windowsIcon>
+                    <windowsPath>${installdir}</windowsPath>
+                    <ruleList>
+                        <isTrue value="${createShortcut}"/>
+                    </ruleList>
+                </startMenuShortcut>
+                <startMenuLinkShortcut>
+                    <comment>${product_fullname} WebSite</comment>
+                    <name>${product_fullname} Web Site</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <url>http://www.silenteye.org/?referer=startmenu</url>
+                    <windowsIcon></windowsIcon>
+                    <windowsIconIndex>1</windowsIconIndex>
+                    <ruleList>
+                        <isTrue value="${createShortcut}"/>
+                    </ruleList>
+                </startMenuLinkShortcut>
+                <startMenuShortcut>
+                    <comment>Uninstall ${product_fullname}</comment>
+                    <name>Uninstall ${product_fullname}</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}/${uninstallerName}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon></windowsIcon>
+                    <windowsIconIndex>2</windowsIconIndex>
+                    <windowsPath>${installdir}/</windowsPath>
+                    <ruleList>
+                        <isTrue value="${createShortcut}"/>
+                    </ruleList>
+                </startMenuShortcut>
+            </startMenuShortcutList>
+        </component>
+        <component>
+            <name>seformatbmp</name>
+            <description>SEFormatBMP</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>Support for encoding and decoding BMP image format.</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/seformatbmp/modules</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+        </component>
+        <component>
+            <name>seformatjpeg</name>
+            <description>SEFormatJPEG</description>
+            <canBeEdited>1</canBeEdited>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/seformatjpeg/modules</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+        </component>
+        <component>
+            <name>seformatwav</name>
+            <description>SEFormatWAV</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>Support for encoding and decoding WAV audio format</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/seformatwav/modules</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+        </component>
+        <component>
+            <name>secryptoaes128</name>
+            <description>SECryptoAES128</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>Support for AES 128 Encryption</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes/modules</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+        </component>
+        <component>
+            <name>secryptoaes256</name>
+            <description>SECryptoAES256</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>Support for AES 256 Encryption</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes256/modules</origin>
+                        </distributionDirectory>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+        </component>
+        <component>
+            <name>qcacomponent</name>
+            <description>Qca2</description>
+            <canBeEdited>1</canBeEdited>
+            <selected>1</selected>
+            <show>0</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}</destination>
+                    <name>programfileswindows</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionDirectory>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes256/lib</origin>
+                        </distributionDirectory>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes256/libeay32.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes256/qca2.dll</origin>
+                        </distributionFile>
+                        <distributionFile>
+                            <origin>../_CPack_Packages/win32/TZ/silenteye-win32/secryptoaes256/ssleay32.dll</origin>
+                        </distributionFile>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+            <shouldPackRuleList>
+                <ruleGroup>
+                    <ruleEvaluationLogic>or</ruleEvaluationLogic>
+                    <ruleList>
+                        <componentTest>
+                            <logic>selected</logic>
+                            <name>secryptoaes128</name>
+                        </componentTest>
+                        <componentTest>
+                            <logic>selected</logic>
+                            <name>secryptoaes256</name>
+                        </componentTest>
+                    </ruleList>
+                </ruleGroup>
+            </shouldPackRuleList>
+        </component>
+    </componentList>
+    <customLanguageFileList>
+        <language>
+            <code>en</code>
+            <file>windows/installer_en.lng</file>
+        </language>
+    </customLanguageFileList>
+    <finalPageActionList>
+        <runProgram>
+            <program>${installdir}/${product_shortname}.exe</program>
+            <programArguments></programArguments>
+            <progressText>Run ${product_fullname}</progressText>
+            <workingDirectory>${installdir}</workingDirectory>
+            <ruleList>
+                <platformTest>
+                    <type>windows</type>
+                </platformTest>
+            </ruleList>
+        </runProgram>
+        <runProgram>
+            <program>${installdir}/silenteye</program>
+            <programArguments></programArguments>
+            <progressText>Run ${product_fullname}</progressText>
+            <useMSDOSPath>0</useMSDOSPath>
+            <workingDirectory>${installdir}</workingDirectory>
+            <ruleList>
+                <platformTest>
+                    <type>linux</type>
+                </platformTest>
+            </ruleList>
+        </runProgram>
+        <runProgram>
+            <program>${installdir}/silenteye.app/Contents/MacOS/silenteye</program>
+            <programArguments></programArguments>
+            <progressText>Run ${product_fullname}</progressText>
+            <workingDirectory>${installdir}/silenteye.app/Contents/MacOS/</workingDirectory>
+            <ruleList>
+                <platformTest>
+                    <type>osx</type>
+                </platformTest>
+            </ruleList>
+        </runProgram>
+    </finalPageActionList>
+    <parameterList>
+        <directoryParameter>
+            <name>installdir</name>
+            <description>Installer.Parameter.installdir.description</description>
+            <explanation>Installer.Parameter.installdir.explanation</explanation>
+            <value></value>
+            <default>${platform_install_prefix}/${product_shortname}</default>
+            <allowEmptyValue>0</allowEmptyValue>
+            <ask>yes</ask>
+            <cliOptionName>prefix</cliOptionName>
+            <mustBeWritable>yes</mustBeWritable>
+            <mustExist>0</mustExist>
+            <width>40</width>
+        </directoryParameter>
+        <parameterGroup>
+            <name>System</name>
+            <title>System integration</title>
+            <explanation></explanation>
+            <value></value>
+            <default></default>
+            <insertAfter>installdir</insertAfter>
+            <parameterList>
+                <parameterGroup>
+                    <name>shortcut</name>
+                    <title>Titre</title>
+                    <explanation>Please select shortcuts to install :</explanation>
+                    <value></value>
+                    <default></default>
+                    <parameterList>
+                        <booleanParameter name="createShortcut" description="Add SilentEye to start menu" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>1</default>
+                            <ruleList>
+                                <platformTest>
+                                    <negate>1</negate>
+                                    <type>osx</type>
+                                </platformTest>
+                            </ruleList>
+                        </booleanParameter>
+                        <booleanParameter name="createDesktopShortcut" description="Add SilentEye shortcut icon on desktop" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>1</default>
+                        </booleanParameter>
+                        <booleanParameter>
+                            <name>createBinLink</name>
+                            <description>Create symbolic link in /usr/bin</description>
+                            <explanation></explanation>
+                            <value></value>
+                            <default>1</default>
+                            <displayStyle>radiobuttons</displayStyle>
+                            <ruleList>
+                                <platformTest>
+                                    <type>linux</type>
+                                </platformTest>
+                            </ruleList>
+                        </booleanParameter>
+                    </parameterList>
+                </parameterGroup>
+                <parameterGroup>
+                    <name>extensions</name>
+                    <explanation>Please select the extensions you want to assiociate with action "Encode/Decode with SilentEye" (experimental):</explanation>
+                    <value></value>
+                    <default></default>
+                    <orientation>horizontal</orientation>
+                    <parameterList>
+                        <booleanParameter name="bmp" description=".bmp" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                        <booleanParameter name="jpg" description=".jpg/.jpeg/.jpe" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                        <booleanParameter name="png" description=".png" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                        <booleanParameter name="gif" description=".gif" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                        <booleanParameter name="tiff" description=".tiff/.tif" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                        <booleanParameter name="wav" description=".wav" displayStyle="checkbox-left">
+                            <explanation></explanation>
+                            <value></value>
+                            <default>0</default>
+                        </booleanParameter>
+                    </parameterList>
+                    <ruleList>
+                        <platformTest>
+                            <type>windows</type>
+                        </platformTest>
+                    </ruleList>
+                </parameterGroup>
+            </parameterList>
+        </parameterGroup>
+    </parameterList>
+</project>
+
