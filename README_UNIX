@@ -1,0 +1,8 @@
+In order to build modules for silenteye, set the following environnement variable to 1 :
+ENABLE_MODULE=1
+In order to build testsuites for silenteye, set the following environnement variable to 1 :
+ENABLE_TESTSUITE=1
+In order to build application and modules (plugins) using static libraries !
+ENABLE_STATIC=1
+In order to build application with internationalization :
+ENABLE_TRANSLATION=1

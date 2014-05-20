@@ -1,0 +1,83 @@
+================================= INFORMATION =================================
+Project: SilentEye
+Licence: GPLv3 (see COPYING)
+Author: Anselme CHOREIN
+Email: anselme@chorein.fr
+Date: 2008-2011
+
+Web site: http://www.silenteye.org
+Bug tracker: http://forge.silenteye.org/projects/stegano
+
+For compilation instructions look at README_UNIX and README_WIN files (or http://www.silenteye.org/devenv.html?i3s1)
+
+================================= RELEASE NOTE ================================
+> Version 0.4.1 - Changes since 0.4.0:
+FEACTURES:
+* Encode message into JPEG file (SEFormatJPEG plug-in)
+
+ENHANCEMENTS:
+* Enable manual edit for encoding destination
+* Generate AES128 and AES256 key from MD5
+
+BUG FIXES:
+* "Open file" function doesn't handle ".tif"
+
+INTERNAL:
+* Update application and plu-ins for static build => needed by standalone installer
+
+> Version 0.4.0 - Changes since 0.3.1:
+ENHANCEMENTS:
+* Audio file supported on main application(can open WAVE/PCM file)
+* "Check for new version" feacture added
+* New SEFormatWAV plug-in added (encode informations into wav files)
+* New installer gives possibility to associate file extensions to silenteye (Windows only)
+* Add tooltip showing absolute file path for current media
+* Copy action works for images
+* Add format selection on Property dialog (display capacity)
+* SECryptoAES256 integration into application distribution package
+
+BUG FIXES:
+* GUI update for more compatibility on KDE
+* SEFormatBMP: change label to "bit(s) per pixel per color"
+* Open two files with same shortname and diferent localisation
+* Now when decoding process succeed, an other try on decode button works.
+
+INTERNAL:
+* SilentEyeFramework architecture is now ready for video plug-in
+
+DEVELOPER RELATED:
+* CMake now search QCA2 on Qt directories
+* Move to Qt 4.7.0 or later (using last QtMultimedia)
+* Move to CMake 2.8.3 (update for QtMultimedia)
+
+
+> Version 0.3.1 - Changes since 0.3.0
+BUG FIXES:
+* "Can't use equidistribution mode for most image and message." : SEFormatBMP plug-in updated to version 1.0.1
+* GUI update for more compatibility when using Gnome. (update for KDE soon...)
+
+
+> Version 0.3.0 - Changes since 0.2.0
+NEW FEACTURES:
+* Data compression
+* Capacity to hide a file
+* Improvement of BMP plug-in
+* Add module state into preferences dialog
+
+REPORTED FEACTURES:
+* Use of context menu in Windows explorer reported to next version
+
+
+> Version 0.2.0 - Changes since 0.1.1
+NEW FEACTURES:
+* Plug-ins system
+* Encryption support (QCA2)
+* Adding logger
+
+
+> Version 0.1.1 - Changes since 0.1.0
+NEW FEACTURES:
+* Keep image ratio on window resize event
+
+BUGS:
+many bugs fixed

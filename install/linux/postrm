@@ -1,0 +1,5 @@
+#!/bin/sh
+
+rm -f /usr/bin/silenteye
+rm -f /usr/share/applications/silenteye.desktop
+rm -fr /opt/silenteye

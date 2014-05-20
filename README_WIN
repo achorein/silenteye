@@ -1,0 +1,11 @@
+In order to build modules for silenteye, set the following environnement variable to 1 :
+set ENABLE_MODULE=1
+In order to build testsuites for silenteye, set the following environnement variable to 1 :
+set ENABLE_TESTSUITE=1
+In order to build application with internationalization :
+ENABLE_TRANSLATION=1
+
+In order to build make file under windows operating system using MinGw, run the following command: 
+cmake -G "MinGW Makefiles" .
+then
+mingw32-make

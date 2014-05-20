@@ -1,0 +1,11 @@
+<!DOCTYPE SilentEye>
+<version>
+ <name>0.5.0</name>
+ <date>20110828</date>
+ <link-win>https://sourceforge.net/projects/silenteye/files/Application/0.5/silenteye-0.5.0-win32.exe/download</link-win>
+ <link-lin>https://sourceforge.net/projects/silenteye/files/Application/0.5/silenteye-0.5.0-i386.bin/download</link-lin>
+ <link-mac>http://sourceforge.net/projects/silenteye/files/Application/0.5/silenteye-0.5.0-snowleopard.dmg/download</link-mac>
+ <releasenote>
+Changes since 0.4.1:
+ </releasenote>
+</version>
