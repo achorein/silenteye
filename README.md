@@ -57,7 +57,7 @@ root$ make
 root$ make install
 ```
 
-or for static compilation :
+> or for static compilation :
 ```
 root$ ./configure -static -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix /usr/local/Qt-4.8.6-release
 ```
@@ -76,9 +76,9 @@ root$ make
 root$ make install
 ```
 
-download patch : [fix_build_gcc4.7.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/fix_build_gcc4.7.diff)
+Download patch : [fix_build_gcc4.7.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/fix_build_gcc4.7.diff)
 
-or for static compilation :
+> or for static compilation :
 ```
 ./configure --qtdir=/usr/local/Qt-4.8.6-static/ --static
 ```
@@ -98,16 +98,16 @@ root$ make
 root$ make install
 ```
 
-download patch : [detect_ssl2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_ssl2_available.diff) and [detect_md2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_md2_available.diff)
+Download patch : [detect_ssl2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_ssl2_available.diff) and [detect_md2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_md2_available.diff)
 
-or for static compilation :
+> or for static compilation :
 ```
 ./configure --qtdir=/usr/local/Qt-4.8.6-static/ --static
 ```
 
 ## CMake
 
-CMake (version > 2.8.10 to build project) :
+CMake (version > 2.8.10 required) :
 
 ```Shell
 root$ apt-get install cmake
@@ -131,13 +131,20 @@ user$ export PATH=/usr/local/Qt-4.8.6-release/bin:$PATH
 user$ ENABLE_MODULE=1 cmake .
 ```
 
-or for static compilation :
+> or for static compilation :
 ```
 user$ export PATH=$PATH:/usr/local/Qt-4.8.6-static/bin
 user$ ENABLE_MODULE=1 ENABLE_STATIC=1 cmake .
 ```
 
+> For windows environnment : cmake -G "MinGW Makefiles" .
+
 Just run make command to build the project
+```
+make
+```
+
+> For windows environnment : mingw32-make
 
 ## Run
 
@@ -180,3 +187,105 @@ $root> make install DESTDIR=$PKG
 | PIXPATH_VALUE=/usr/share/pixmaps | Change default pixmaps path (installation only) |
 | ENABLE_GNOMEMENU=1 | Create gnome menu entry on install (create /usr/share/applications/silenteye.desktop) |
 
+
+
+# RELEASE HISTORY
+
+## Version 0.4.3 - Changes since 0.4.2:
+
+FEACTURES:
+* Batch mode (process file from command line)
+* SEFormatBMP/SEFormatJPEG/SEFormatWAV : Use external configuration file for default values
+
+ENHANCEMENT:
+* Improve dialog's tooltips for jpeg module
+* Add "compress data" default value into preferences
+
+BUG FIXES:
+* Show module tooltip even if status is OK
+
+## Version 0.4.2 - Changes since 0.4.1:
+
+ENHANCEMENTS:
+* add executable's options in order to change default logpath and confpath (--logpath and --confpath)
+
+INTERNAL:
+* configuration/log/lib/share paths are configurable on compilation (CMake options)
+* "make install" works fine for linux distribution
+* Move to Qt 4.8.2
+
+## Version 0.4.1b (only Mac OSX) - Changes since 0.4.1:
+* Encryption (AES 128/256) didn't work on Mac OS X. Package (installer) had been updated to fix libraries dependences.
+
+## Version 0.4.1 - Changes since 0.4.0:
+
+FEACTURES:
+* Encode message into JPEG file (SEFormatJPEG plug-in)
+
+ENHANCEMENTS:
+* Enable manual edit for encoding destination
+* Generate AES128 and AES256 key from MD5
+
+BUG FIXES:
+* "Open file" function doesn't handle ".tif"
+
+INTERNAL:
+* Update application and plu-ins for static build =## needed by standalone installer
+
+## Version 0.4.0 - Changes since 0.3.1:
+
+ENHANCEMENTS:
+* Audio file supported on main application(can open WAVE/PCM file)
+* "Check for new version" feacture added
+* New SEFormatWAV plug-in added (encode informations into wav files)
+* New installer gives possibility to associate file extensions to silenteye (Windows only)
+* Add tooltip showing absolute file path for current media
+* Copy action works for images
+* Add format selection on Property dialog (display capacity)
+* SECryptoAES256 integration into application distribution package
+
+BUG FIXES:
+* GUI update for more compatibility on KDE
+* SEFormatBMP: change label to "bit(s) per pixel per color"
+* Open two files with same shortname and diferent localisation
+* Now when decoding process succeed, an other try on decode button works.
+
+INTERNAL:
+* SilentEyeFramework architecture is now ready for video plug-in
+
+DEVELOPER RELATED:
+* CMake now search QCA2 on Qt directories
+* Move to Qt 4.7.0 or later (using last QtMultimedia)
+* Move to CMake 2.8.3 (update for QtMultimedia)
+
+## Version 0.3.1 - Changes since 0.3.0
+
+BUG FIXES:
+* "Can't use equidistribution mode for most image and message." : SEFormatBMP plug-in updated to version 1.0.1
+* GUI update for more compatibility when using Gnome. (update for KDE soon...)
+
+## Version 0.3.0 - Changes since 0.2.0
+
+NEW FEACTURES:
+* Data compression
+* Capacity to hide a file
+* Improvement of BMP plug-in
+* Add module state into preferences dialog
+
+REPORTED FEACTURES:
+* Use of context menu in Windows explorer reported to next version
+
+## Version 0.2.0 - Changes since 0.1.1
+
+NEW FEACTURES:
+* Plug-ins system
+* Encryption support (QCA2)
+* Adding logger
+
+## Version 0.1.1 - Changes since 0.1.0
+
+NEW FEACTURES:
+* Keep image ratio on window resize event
+
+BUGS:
+many bugs fixed
