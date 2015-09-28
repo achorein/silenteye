@@ -1,14 +1,12 @@
-Boostrap Vagrant pour Docker
+Boostrap Vagrant for SilentEye build
 ================================================================================
 
-## Pré-requis
+## Requirement
 - Vagrant : https://www.vagrantup.com/
-- Git (client ssh) : https://git-scm.com/
+- Git (sh client) : https://git-scm.com/
 
-## Installation
+## Install
 
-
-## Developpement
 ```
 vagrant up
 vagrant ssh

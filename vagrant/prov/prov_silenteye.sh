@@ -3,6 +3,7 @@
 apt-get install -y cmake
 
 cd /vagrant_data
+
 git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
 cd silenteye
 
