@@ -3,14 +3,24 @@ Project: SilentEye
 Licence: GPLv3 (see COPYING)
 Author: Anselme CHOREIN
 Email: anselme@chorein.fr
-Date: 2008-2012
+Date: 2008-2015
 
 Web site: http://www.silenteye.org
-Bug tracker: http://forge.silenteye.org/projects/stegano
+Bug tracker: https://github.com/DarkReZuS/silenteye/issues
 
 For compilation instructions look at README_UNIX and README_WIN files (or http://www.silenteye.org/devenv.html?i3s1)
 
 ================================= RELEASE NOTE ================================
+> Version 0.4.3 - Changes since 0.4.2:
+FEACTURES:
+* Batch mode (process file from command line)
+* SEFormatBMP/SEFormatJPEG/SEFormatWAV : Use external configuration file for default values
+ENHANCEMENT:
+* Improve dialog's tooltips for jpeg module
+* Add "compress data" default value into preferences
+BUG FIXES:
+* Show module tooltip even if status is OK
+
 > Version 0.4.2 - Changes since 0.4.1:
 ENHANCEMENTS:
 * add executable's options in order to change default logpath and confpath (--logpath and --confpath)

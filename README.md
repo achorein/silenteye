@@ -165,7 +165,7 @@ $root> make install DESTDIR=$PKG
 
 | Option  | Description |
 | ------------- | ------------- |
-| ENABLE_MODULE  | In order to build modules for silenteye, set the following environnement variable to 1 :  |
+| ENABLE_MODULE=1  | In order to build modules for silenteye, set the following environnement variable to 1 |
 | ENABLE_TESTSUITE=1 | In order to build testsuites for silenteye, set the following environnement variable to 1 |
 | ENABLE_STATIC=1 | In order to build application and modules (plugins) in static mode |
 | ENABLE_PACK=1 | In order to enable "make install" command (also enable CPack) |
