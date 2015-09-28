@@ -4,7 +4,9 @@ silenteye
 SilentEye is a cross-platform application design for an easy use of steganography, in this case hiding messages into pictures or sounds. It provides a pretty nice interface and an easy integration of new steganography algorithm and cryptography process by using a plug-ins system.
 SilentEye is free to use (under GNU GPL v3).
 
-read more : http://www.silenteye.org
+Read more : http://www.silenteye.org
+
+Download executable : http://www.silenteye.org/download.html?i2 or http://sourceforge.net/projects/silenteye/files/
 
 # Main Features
 
@@ -42,7 +44,13 @@ Encryption:
 ./silenteye --batch encode ./myfile.png --message "my secret message" --password "my password"
 ```
 
-# How can i compile source code?
+# How can i compile source code? on Ubuntu/Unix
+
+## Requirments
+
+```
+apt-get install -y g++ libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor-dev libxext-dev libxfixes-dev libxft-dev libxi-dev libxrandr-dev libxrender-dev libssl-dev
+```
 
 ## Qt
 
@@ -137,14 +145,10 @@ user$ export PATH=$PATH:/usr/local/Qt-4.8.6-static/bin
 user$ ENABLE_MODULE=1 ENABLE_STATIC=1 cmake .
 ```
 
-> For windows environnment : cmake -G "MinGW Makefiles" .
-
 Just run make command to build the project
 ```
 make
 ```
-
-> For windows environnment : mingw32-make
 
 ## Run
 
@@ -168,7 +172,40 @@ or
 $root> make install DESTDIR=$PKG
 ```
 
-## Compilation options
+# How can i compile source code? on Windows
+
+## Requirments
+
+Download and install the following tools :
+
+* Qt 4.8 SDK (MinGW) : http://qt-project.org/downloads
+* CMake 2.8.10 : http://www.cmake.org/
+* OpenSSL 1.0.0 for windows : http://www.openssl.org/related/binaries.html
+* Download QCA 2.0.1 for MinGW : http://delta.affinix.com/download/qca/2.0/qca-2.0.1-mingw.zip
+  * copy qca2.dll and qcad2.dll into C:\Qt\2010.04\qt\bin
+  * copy libqca2.a and libqcad2.a into C:\Qt\2010.04\qt\lib
+  * copy QtCrypto directory into C:\Qt\2010.04\qt\include
+* Download QCA-OSSL 2.0.0 for MinGW : http://delta.affinix.com/download/qca/2.0/plugins/qca-ossl-2.0.0-beta3.tar.bz2
+  * copy qca-ossl2.dll into C:\Qt\2010.04\qt\plugins\crypto
+
+> Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you a archive you just have to uncompress into your qt installation dir : [qca2-qtfolder.zip](http://www.openssl.org/related/binaries.html)
+
+## Import project into Qt Creator 2
+
+1. Tools>Options>Projects>CMake => set cmake.exe path
+2. Open file or project => select silenteye-src-0.4.1/CMakeLists.txt
+3. Choose mingw generator and set parameter to "."
+4. Configure project compilation
+  1. add environnement variable: ENABLE_MODULE set to 1
+  2. add step (before mingw32-make). => cmake.exe with parameter "."
+5. Close Qt Creator and reopen it using your last session (force files scan)
+
+## Run
+
+1. Just use the run function of Qt Creator
+2. when asked select executable: silenteye-src-0.4.1/silenteye.exe
+
+# Compilation options
 
 | Option  | Description |
 | ------------- | ------------- |

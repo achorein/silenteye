@@ -1,17 +1,20 @@
+# halt on error
+set -e
+
 . /etc/environment
 
 apt-get install -y g++ \
-	libfontconfig1-dev \
-	libfreetype6-dev \
-	libx11-dev \
-	libxcursor-dev \
-	libxext-dev \
-	libxfixes-dev \
-	libxft-dev \
-	libxi-dev \
-	libxrandr-dev \
-	libxrender-dev \
-	libssl-dev
+    libfontconfig1-dev \
+    libfreetype6-dev \
+    libx11-dev \
+    libxcursor-dev \
+    libxext-dev \
+    libxfixes-dev \
+    libxft-dev \
+    libxi-dev \
+    libxrandr-dev \
+    libxrender-dev \
+    libssl-dev
 
 QT_PREFIX=/usr/local/Qt-4.8.6-release/
 

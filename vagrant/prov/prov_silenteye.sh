@@ -1,3 +1,6 @@
+# halt on error
+set -e
+
 . /etc/environment
 
 apt-get install -y cmake
