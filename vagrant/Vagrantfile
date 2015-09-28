@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+	config.vm.box = "ubuntu/trusty64"
+
+	# scripts de provisionnement
+	config.vm.provision "shell", path: "prov/prov.sh"
+	config.vm.provision "shell", path: "prov/prov_qt-qca.sh"
+	config.vm.provision "shell", path: "prov/prov_silenteye.sh"
+
+	config.vm.synced_folder "vagrant_data", "/vagrant_data/"
+
+	config.vm.network "private_network", ip: "192.168.0.11"
+
+	config.vm.box_check_update = false
+	config.vm.provider "virtualbox" do |vb|
+		vb.name = 'silenteye_build_vm'
+		# Display the VirtualBox GUI when booting the machine
+		vb.gui = false
+		# Customize the amount of memory on the VM:
+		vb.memory = "2048"
+		vb.cpus = 2
+	end
+end
