@@ -179,8 +179,8 @@ $root> make install DESTDIR=$PKG
 Download and install the following tools :
 
 * Qt 4.8 SDK (MinGW) : http://download.qt.io/official_releases/qt/4.8/4.8.7/qt-opensource-windows-x86-mingw482-4.8.7.exe
-* CMake 2.8.10 : http://www.cmake.org/
-* OpenSSL 1.0.0 for windows : http://www.openssl.org/related/binaries.html
+* CMake 2.8.12 : http://cmake.org/files/v2.8/cmake-2.8.12.2-win32-x86.exe
+* OpenSSL 1.0.2d for windows : https://www.openssl.org/community/binaries.html
 * Download QCA 2.0.1 for MinGW : http://delta.affinix.com/download/qca/2.0/qca-2.0.1-mingw.zip
   * copy qca2.dll and qcad2.dll into C:\Qt\2010.04\qt\bin
   * copy libqca2.a and libqcad2.a into C:\Qt\2010.04\qt\lib
@@ -188,7 +188,7 @@ Download and install the following tools :
 * Download QCA-OSSL 2.0.0 for MinGW : http://delta.affinix.com/download/qca/2.0/plugins/qca-ossl-2.0.0-beta3.tar.bz2
   * copy qca-ossl2.dll into C:\Qt\2010.04\qt\plugins\crypto
 
-> Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you a archive you just have to uncompress into your qt installation dir : [qca2-qtfolder.zip](http://www.openssl.org/related/binaries.html)
+> Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you an archive you just have to uncompress into your qt installation directory : [qca2-qtfolder.zip](https://github.com/DarkReZuS/silenteye/blob/0.4/install/windows/qca2-qtfolder.zip)
 
 ## Get source code
 
@@ -200,8 +200,10 @@ user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
 
 ## Import project into Qt Creator 2
 
-1. Tools>Options>Projects>CMake => set cmake.exe path
-2. Open file or project => select silenteye-src-0.4.1/CMakeLists.txt
+* Download QtCreator : http://download.qt.io/official_releases/qtcreator/3.5/3.5.0/qt-creator-opensource-windows-x86-3.5.0.exe
+
+1. Configure Kit and cmake http://doc.qt.io/qtcreator/creator-targets.html
+2. Open file or project => select silenteye/CMakeLists.txt
 3. Choose mingw generator and set parameter to "."
 4. Configure project compilation
   1. add environnement variable: ENABLE_MODULE set to 1
@@ -210,8 +212,7 @@ user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
 
 ## Run
 
-1. Just use the run function of Qt Creator
-2. when asked select executable: silenteye-src-0.4.1/silenteye.exe
+Just use the run function of Qt Creator
 
 # Compilation options
 

@@ -1,0 +1,10 @@
+/CMakeCache.txt
+*CMakeFiles
+/modules
+*Makefile
+/vagrant/.vagrant
+/silenteye*
+/libsef*
+*.cxx*
+*.cmake
+*ui_*.h
