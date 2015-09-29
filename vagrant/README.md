@@ -1,4 +1,4 @@
-Boostrap Vagrant for SilentEye build
+Bootstrap Vagrant for SilentEye build
 ================================================================================
 
 ## Requirement

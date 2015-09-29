@@ -16,13 +16,13 @@ apt-get install -y g++ \
     libxrender-dev \
     libssl-dev
 
-QT_PREFIX=/usr/local/Qt-4.8.6-release/
+QT_PREFIX=/usr/local/Qt-4.8.7-release/
 
 # Download and Compile Qt
 cd ~
-wget -nv -t 1 http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz
-tar -zxf qt-everywhere-opensource-src-4.8.6.tar.gz
-cd qt-everywhere-opensource-src-4.8.6
+wget -nv -t 1 http://download.qt.io/official_releases/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz
+tar -zxf qt-everywhere-opensource-src-4.8.7.tar.gz
+cd qt-everywhere-opensource-src-4.8.7
 echo "yes" | ./configure -release -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix $QT_PREFIX
 make && make install
 

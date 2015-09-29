@@ -57,17 +57,17 @@ apt-get install -y g++ libfontconfig1-dev libfreetype6-dev libx11-dev libxcursor
 You have to install Qt from source with the following commands:
 
 ```Shell
-root$ wget http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz
-root$ tar -zxvf qt-everywhere-opensource-src-4.8.6.tar.gz
-root$ cd qt-everywhere-opensource-src-4.8.6
-root$ ./configure -release -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix /usr/local/Qt-4.8.6-release
+root$ wget http://download.qt.io/official_releases/qt/4.8/4.8.7/qt-everywhere-opensource-src-4.8.7.tar.gz
+root$ tar -zxvf qt-everywhere-opensource-src-4.8.7.tar.gz
+root$ cd qt-everywhere-opensource-src-4.8.7
+root$ ./configure -release -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix /usr/local/Qt-4.8.7-release
 root$ make
 root$ make install
 ```
 
 > or for static compilation :
 ```
-root$ ./configure -static -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix /usr/local/Qt-4.8.6-release
+root$ ./configure -static -nomake examples -nomake demos -no-qt3support -no-scripttools -no-opengl -no-webkit -no-phonon -no-sql-sqlite -gtkstyle -opensource -prefix /usr/local/Qt-4.8.7-release
 ```
 
 ## QCA2
@@ -79,7 +79,7 @@ root$ wget http://delta.affinix.com/download/qca/2.0/qca-2.0.3.tar.bz2
 root$ bunzip2 qca-2.0.3.tar.bz2 && tar -xvf qca-2.0.3.tar
 root$ cd qca-2.0.3
 root$ patch src/botantools/botan/botan/secmem.h fix_build_gcc4.7.diff
-root$ ./configure --qtdir=/usr/local/Qt-4.8.6-release/
+root$ ./configure --qtdir=/usr/local/Qt-4.8.7-release/
 root$ make
 root$ make install
 ```
@@ -88,7 +88,7 @@ Download patch : [fix_build_gcc4.7.diff](https://github.com/DarkReZuS/silenteye/
 
 > or for static compilation :
 ```
-./configure --qtdir=/usr/local/Qt-4.8.6-static/ --static
+./configure --qtdir=/usr/local/Qt-4.8.7-static/ --static
 ```
 
 ## QCA-OSSL
@@ -101,7 +101,7 @@ root$ bunzip2 qca-ossl-2.0.0-beta3.tar.bz2 && tar -xvf qca-ossl-2.0.0-beta3.tar
 root$ cd qca-ossl-2.0.0-beta3
 root$ patch qca-ossl.cpp < detect_ssl2_available.diff
 root$ patch qca-ossl.cpp < detect_md2_available.diff
-root$ ./configure --qtdir=/usr/local/Qt-4.8.6-release/
+root$ ./configure --qtdir=/usr/local/Qt-4.8.7-release/
 root$ make
 root$ make install
 ```
@@ -110,7 +110,7 @@ Download patch : [detect_ssl2_available.diff](https://github.com/DarkReZuS/silen
 
 > or for static compilation :
 ```
-./configure --qtdir=/usr/local/Qt-4.8.6-static/ --static
+./configure --qtdir=/usr/local/Qt-4.8.7-static/ --static
 ```
 
 ## CMake
@@ -123,7 +123,7 @@ root$ apt-get install cmake
 
 ## Get source code
 
-Then download, decompress and move into source folder :
+Then download and move into source folder :
 
 ```Shell
 user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
@@ -135,13 +135,13 @@ user$ cd silenteye
 Now you can generate MakeFile like this :
 
 ```Shell
-user$ export PATH=/usr/local/Qt-4.8.6-release/bin:$PATH
+user$ export PATH=/usr/local/Qt-4.8.7-release/bin:$PATH
 user$ ENABLE_MODULE=1 cmake .
 ```
 
 > or for static compilation :
 ```
-user$ export PATH=$PATH:/usr/local/Qt-4.8.6-static/bin
+user$ export PATH=$PATH:/usr/local/Qt-4.8.7-static/bin
 user$ ENABLE_MODULE=1 ENABLE_STATIC=1 cmake .
 ```
 
@@ -178,7 +178,7 @@ $root> make install DESTDIR=$PKG
 
 Download and install the following tools :
 
-* Qt 4.8 SDK (MinGW) : http://qt-project.org/downloads
+* Qt 4.8 SDK (MinGW) : http://download.qt.io/official_releases/qt/4.8/4.8.7/qt-opensource-windows-x86-mingw482-4.8.7.exe
 * CMake 2.8.10 : http://www.cmake.org/
 * OpenSSL 1.0.0 for windows : http://www.openssl.org/related/binaries.html
 * Download QCA 2.0.1 for MinGW : http://delta.affinix.com/download/qca/2.0/qca-2.0.1-mingw.zip
@@ -189,6 +189,14 @@ Download and install the following tools :
   * copy qca-ossl2.dll into C:\Qt\2010.04\qt\plugins\crypto
 
 > Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you a archive you just have to uncompress into your qt installation dir : [qca2-qtfolder.zip](http://www.openssl.org/related/binaries.html)
+
+## Get source code
+
+Then download :
+
+```Shell
+user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
+```
 
 ## Import project into Qt Creator 2
 
