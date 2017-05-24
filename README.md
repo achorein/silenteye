@@ -4,9 +4,9 @@ silenteye
 SilentEye is a cross-platform application design for an easy use of steganography, in this case hiding messages into pictures or sounds. It provides a pretty nice interface and an easy integration of new steganography algorithm and cryptography process by using a plug-ins system.
 SilentEye is free to use (under GNU GPL v3).
 
-Read more : http://www.silenteye.org
+Read more : http://silenteye.v1kings.io
 
-Download executable : http://www.silenteye.org/download.html?i2 or http://sourceforge.net/projects/silenteye/files/
+Download executable : http://silenteye.v1kings.io/download.html?i2 or http://sourceforge.net/projects/silenteye/files/
 
 # Main Features
 
