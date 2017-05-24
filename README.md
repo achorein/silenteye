@@ -188,14 +188,14 @@ Download and install the following tools :
 * Download QCA-OSSL 2.0.0 for MinGW : http://delta.affinix.com/download/qca/2.0/plugins/qca-ossl-2.0.0-beta3.tar.bz2
   * copy qca-ossl2.dll into C:\Qt\2010.04\qt\plugins\crypto
 
-> Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you an archive you just have to uncompress into your qt installation directory : [qca2-qtfolder.zip](https://github.com/DarkReZuS/silenteye/blob/0.4/install/windows/qca2-qtfolder.zip)
+> Making QCA works (compilation and packaging) with mingw was really painfull, that's why i provide you an archive you just have to uncompress into your qt installation directory : [qca2-qtfolder.zip](https://github.com/achorein/silenteye/blob/0.4/install/windows/qca2-qtfolder.zip)
 
 ## Get source code
 
 Then download :
 
 ```Shell
-user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
+user$ git clone --branch 0.4 https://github.com/achorein/silenteye.git
 ```
 
 ## Import project into Qt Creator 2
