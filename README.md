@@ -106,7 +106,7 @@ root$ make
 root$ make install
 ```
 
-Download patch : [detect_ssl2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_ssl2_available.diff) and [detect_md2_available.diff](https://github.com/DarkReZuS/silenteye/blob/0.4/vagrant/vagrant_data/detect_md2_available.diff)
+Download patch : [detect_ssl2_available.diff](https://github.com/achorein/silenteye/blob/0.4/vagrant/vagrant_data/detect_ssl2_available.diff) and [detect_md2_available.diff](https://github.com/achorein/silenteye/blob/0.4/vagrant/vagrant_data/detect_md2_available.diff)
 
 > or for static compilation :
 ```
@@ -126,7 +126,7 @@ root$ apt-get install cmake
 Then download and move into source folder :
 
 ```Shell
-user$ git clone --branch 0.4 https://github.com/DarkReZuS/silenteye.git
+user$ git clone --branch 0.4 https://github.com/achorein/silenteye.git
 user$ cd silenteye
 ```
 
