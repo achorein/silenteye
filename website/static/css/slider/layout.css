@@ -1,0 +1,46 @@
+body {
+	font: 14px/1.75 "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, Sans-Serif;
+	margin: 20px 100px;
+}
+
+strong, em {
+	font-family: "Lucida Grande", "Lucida Sans", "Lucida Sans Unicode", Helvetica, Arial, Sans-Serif;
+}
+
+ul li {
+	list-style-type: disc;
+}
+
+ol li {
+	list-style-type: decimal;
+}
+
+ul, ol {
+	margin: 20px 30px;
+}
+
+p {
+	padding-bottom: 20px;
+}
+
+a {
+	text-decoration: none;
+	color: #3366BB;
+}
+
+a:hover {
+	color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: Lobster, Georgia, "Times New Roman", Times, Serif;
+	margin-bottom: 10px;
+	line-height: 1.1;
+}
+
+h1 { font-size: 200%; border-bottom: 1px solid #ececec; }
+h2 { font-size: 175%; }
+h3 { font-size: 150%; }
+h4 { font-size: 125%; }
+h5 { font-size: 115%; }
+h6 { font-size: 110%; }

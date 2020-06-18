@@ -1,0 +1,57 @@
+#slider {
+	position: relative;
+	width: 600px;
+	overflow: hidden;
+}
+
+#slider li {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.caption {
+	opacity: 0.8;
+	background: #000;
+	height: 33px;
+	padding: 5px 0 0 0;
+	color: #fff;
+	text-align: center;
+	font: 25px/1 Georgia, "Times New Roman", Times, Serif;
+	z-index: 200;
+}
+
+.prev-link, .next-link {
+	display: block;
+	width: 24px;
+	height: 24px;
+	background-repeat: no-repeat;
+	background-position: left top;
+	position: absolute;
+	bottom: 10px;
+	z-index: 300;
+}
+
+.prev-link {
+	left: 10px;
+	background-image: url( ../../images/slider/prev.png );
+}
+
+.next-link {
+	left: 40px;
+	background-image: url( ../../images/slider/next.png );
+}
+
+.circle {
+	display: block;
+	width: 16px;
+	height: 16px;
+	background: url( ../../images/slider/circle-empty.png ) no-repeat left top;
+	position: absolute;
+	bottom: 10px;
+	z-index: 300;
+}
+
+.circle-current {
+	background-image: url( ../../images/slider/circle-full.png );
+}

@@ -1,0 +1,173 @@
+/* begin Box, Sheet */
+.art-sheet-tl
+{
+  clip: rect(auto 17px 17px auto);
+}
+
+.art-sheet-tr
+{
+  clip: rect(auto auto 17px 17px);
+}
+
+.art-sheet-bl
+{
+  clip: rect(17px 17px auto auto);
+}
+
+.art-sheet-br
+{
+  clip: rect(17px auto auto 17px);
+}
+
+.art-sheet-tc
+{
+  clip: rect(auto auto 17px auto);
+}
+
+.art-sheet-bc
+{
+  clip: rect(17px auto auto auto);
+}
+
+.art-sheet-cr
+{
+  clip: rect(auto auto auto 17px);
+}
+
+.art-sheet-cl
+{
+  clip: rect(auto 17px auto auto);
+}
+
+.art-sheet-body
+{
+  zoom: 1;
+}
+/* end Box, Sheet */
+
+/* begin Layout */
+div.art-content-layout
+{
+  display: block;
+  zoom: 1;
+  overflow: hidden;
+}
+/* end Layout */
+
+/* begin Box, Block, VMenuBlock */
+
+.art-vmenublock-body
+{
+  zoom: 1;
+}
+/* end Box, Block, VMenuBlock */
+
+/* begin Box, Box, VMenuBlockContent */
+
+.art-vmenublockcontent-body
+{
+  zoom: 1;
+}
+
+.art-vmenublockcontent-body
+{
+  zoom: 1;
+}
+/* end Box, Box, VMenuBlockContent */
+
+/* begin VMenuItem */
+ul.art-vmenu .art-vmenu-separator, ul.art-vmenu .art-vmenu-separator-span, ul.art-vmenu li.art-vsubmenu-separator, ul.art-vmenu .art-vsubmenu-separator-span
+{
+  zoom: 1;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+}
+
+.art-vmenu ul, .art-vmenu li
+{
+  zoom: 1;
+}
+
+ul.art-vmenu a .r
+{
+  clip: rect(auto auto auto 883px);
+}
+/* end VMenuItem */
+
+/* begin Box, Block */
+
+.art-block-body
+{
+  zoom: 1;
+}
+/* end Box, Block */
+
+/* begin BlockHeader */
+.art-blockheader .r
+{
+  clip: rect(auto auto auto 871px);
+}
+/* end BlockHeader */
+
+/* begin Box, BlockContent */
+
+.art-blockcontent-body
+{
+  zoom: 1;
+}
+/* end Box, BlockContent */
+
+/* begin Button */
+.art-button-wrapper .r
+{
+  clip: rect(auto auto auto 399px);
+}
+/* end Button */
+
+/* begin Box, Post */
+
+.art-post-body
+{
+  zoom: 1;
+}
+/* end Box, Post */
+
+/* begin PostContent */
+.art-postcontent
+{
+  height: 1%;
+}
+/* end PostContent */
+
+/* begin Footer */
+.art-footer-r
+{
+  clip: rect(auto auto auto 4px);
+}
+
+/* end Footer */
+
+/* begin LayoutCell, content */
+div.art-sidebar2
+{
+  width: auto;
+}
+
+div.art-content-layout div.art-layout-cell, div.art-content-layout div.art-layout-cell div.art-content-layout div.art-layout-cell
+{
+  display: block;
+  overflow: hidden;
+  float: left;
+  clear: right;
+  margin-bottom: -32000px;
+  padding-bottom: 32000px;
+}
+
+div.art-layout-cell div.art-layout-cell
+{
+  float: none;
+  clear: both;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}/* end LayoutCell, content */

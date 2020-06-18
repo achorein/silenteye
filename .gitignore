@@ -8,3 +8,4 @@
 *.cxx*
 *.cmake
 *ui_*.h
+html-legacy
