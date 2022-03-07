@@ -161,7 +161,7 @@ export default function Layout({children}) {
 					<div class="art-footer-inner">
 						<div class="art-footer-text">
 							<p>
-								<a href="mailto:silenteye@chorein.fr">Contact Us</a> | 
+								<a href="mailto:anselme@chorein.fr">Contact Us</a> | 
 								<a href={withPrefix('/licence/COPYING.txt')}>Terms of Use</a> | 
 								<a href="http://twitter.com/_SilentEye" title="Follow us on Twitter" target="_blank"><img class="image" src={withPrefix('/images/social/twitter.png')} alt="Follow us on Twitter"/></a>
 								<a href="http://delicious.com/post?url=http://www.silenteye.org&amp;title=Steganography+is+yours!" title="Post to Delicious" target="_blank"><img class="image" src={withPrefix('/images/social/delicious.png')} alt="Post to Delicious"/></a>
